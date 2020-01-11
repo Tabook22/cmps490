@@ -1,0 +1,46 @@
+<!-- <form action="/place/search/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="pltitle"> <br>
+    <input type="submit" name="Find">
+</form> -->
+
+<form action="/place/add_new_pl/"  method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit"  name="Add New places">
+</form>
+<hr>
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table class="table">
+    <tr>
+        <td class="hd">Title</td>
+        <td class="hd">ID</td>
+        <td class="hd">Stext</td>
+        <td class="hd">State</td>
+        <td class="hd">Lat</td>
+        <td class="hd">Lang</td>
+        <td></td>
+    </tr>
+    {% for  pl in pllst  %}
+    <tr>
+        <td>{{pl.pltitle}}</td>
+        <td>{{pl.plid}}</td>
+        <td>{{pl.plstext}}</td>
+        <td>{{pl.plstate}}</td>
+        <td>{{pl.pllat}}</td>
+        <td>{{pl.pllang}}</td>
+        <td><a href="{% url 'place:editpl' id=pl.id %}">Edit</a></td>
+        <td><a onclick="return confirm('Are you sure you want to delete this place?');" href="{% url 'place:delete' id=pl.id %}">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+</table>
+

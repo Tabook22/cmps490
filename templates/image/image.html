@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<form action="/image/search/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="btitle"> <br>
+    <input type="submit" name="Find">
+</form>
+
+<form action="/image/add_new_b/"  method="POST">
+    {% csrf_token %}
+    bigimage Title:<input type="text" name="btitle"><br>
+    bigimage ID:<input type="text" name="bid"><br>
+    bigimage State:<input type="text" name="bstate"><br>
+    bigimage Order:<input type="text" name="border"><br>
+    bigimage Stext:<input type="text" name="bstext"><br>
+    bigimage Feature:<input type="text" name="bfeature"><br>
+    bigimage bplid:<input type="text" name="bplid"><br>
+
+
+
+
+    <input type="submit"  name="Add New bigimage">
+</form>
+<hr>
+{{msg}}
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table class="table">
+    <tr>
+        <td class="hd">Title</td>
+        <td class="hd">ID</td>
+        <td class="hd">State</td>
+        <td class="hd">Order</td>
+        <td class="hd">Stext</td>
+        <td class="hd">Feature</td>
+        <td class="hd">bplid</td>
+
+        <td></td>
+    </tr>
+    {% for  b in blst  %}
+    <tr>
+        <td>{{b.btitle}}</td>
+        <td>{{b.bid}}</td>
+        <td>{{b.bstate}}</td>
+        <td>{{b.border}}</td>
+        <td>{{b.bstext}}</td>
+        <td>{{b.bfeature}}</td>
+        <td>{{b.bplid}}</td>
+
+        <td><a href="{% url 'image:editb' id=b.id %}">Edit</a></td>
+        <td><a onclick="return confirm('Are you sure you want to delete this photographer?');" href="{% url 'image:delete' id=b.id %}">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

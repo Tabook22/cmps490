@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<form action="/pho/search/" method="POST">
+    {% csrf_token %}
+    <input type="text" name="pname"> <br>
+    <input type="submit" name="Find">
+</form>
+
+<form action="/pho/add_new_p/"  method="POST">
+    {% csrf_token %}
+    photographer Name:<input type="text" name="pname"><br>
+    photographer ID:<input type="text" name="pid"><br>
+    photographer pImg:<input type="text" name="pimage"><br>
+    photographer stext:<input type="text" name="pstext"><br>
+    photographer state:<input type="text" name="pstate"><br>
+    photographer order:<input type="text" name="porder"><br>
+
+
+
+
+    <input type="submit"  name="Add New photographer">
+</form>
+<hr>
+{{msg}}
+<!-- Load image manually -->
+<img src="{% static "ph/download.jpg" %}" style="max-width:200px;">
+<table class="table">
+     <tr>
+        <td><img src="{% static "ph/download.jpg" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "ph/download.jpg" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "ph/download.jpg" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "ph/download.jpg" %}" style="max-width:50px;"></td>
+        <td><img src="{% static "ph/download.jpg" %}" style="max-width:50px;"></td>
+ </tr>
+</table>
+<br>
+<style>
+    td{
+        border:1px solid #000;
+    }
+    td.hd{
+        background-color:#c1c1c1;
+    }
+</style>
+<table class="table">
+    <tr>
+        <td class="hd">Name</td>
+        <td class="hd">ID</td>
+        <td class="hd">pImg</td>
+        <td class="hd">stext</td>
+        <td class="hd">state</td>
+        <td class="hd">order</td>
+        <td></td>
+    </tr>
+    {% for  p in plst  %}
+    <tr>
+        <td>{{p.pname}}</td>
+        <td>{{p.pid}}</td>
+        <td>{{p.pimage}}</td>
+        <td>{{p.pstext}}</td>
+        <td>{{p.pstate}}</td>
+        <td>{{p.porder}}</td>
+        <td><a href="{% url 'pho:editp' id=p.id %}">Edit</a></td>
+        <td><a onclick="return confirm('Are you sure you want to delete this photographer?');" href="{% url 'pho:delete' id=p.id %}">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

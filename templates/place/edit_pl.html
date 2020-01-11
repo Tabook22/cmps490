@@ -1,0 +1,16 @@
+<h2>Please change the data as required !</h2>
+<hr>
+<form action="/place/edit_pl/" method="POST">
+    {% csrf_token %}
+    <input type="hidden"  name="id" value="{{result.id}}">
+    places Title:<input type="text" name="pltitle" value="{{result.pltitle}}"><br>
+    places ID:<input type="text" name="plid" value="{{result.plid}}"><br>
+    places Stext:<input type="text" name="plstext" value="{{result.plstext}}"><br>
+    places State:<input type="text" name="plstate" value="{{result.plstate}}"><br>
+    places Lat:<input type="text" name="pllat" value="{{result.pllat}}"><br>
+    places Lang:<input type="text" name="pllang" value="{{result.pllang}}"><br>
+    <input type="submit" name="save changes">
+
+
+
+</form>

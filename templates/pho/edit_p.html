@@ -1,0 +1,16 @@
+<h2>Please change the data as required !</h2>
+<hr>
+<form action="/pho/edit_p/" method="POST">
+    {% csrf_token %}
+    <input type="hidden"  name="id" value="{{result.id}}">
+    photographer Name:<input type="text" name="pname" value="{{result.pname}}"><br>
+    photographer ID:<input type="text" name="pid" value="{{result.pid}}"><br>
+    photographer pImg:<input type="text" name="pimage" value="{{result.pimage}}"><br>
+    photographer stext:<input type="text" name="pstext" value="{{result.pstext}}"><br>
+    photographer state:<input type="text" name="pstate" value="{{result.pstate}}"><br>
+    photographer order:<input type="text" name="porder" value="{{result.porder}}"><br>
+    <input type="submit" name="save changes">
+
+
+
+</form>

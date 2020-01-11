@@ -1,0 +1,152 @@
+{% include "_header.html" %}
+<main role="main">
+  <section class="jumbotron text-center" style="background: url(media/{{mimg}}) no-repeat center center;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+    <div class="container" style="background-color:rgba(0,0,0,0.3);">
+      <h1 class="jumbotron-heading" style="color:#fff;font-weight:bold;">{{imgname}}</h1>
+      <p class="lead text-muted" style="color:#fff !important;">{{desc}}</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+
+      </p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+      <!-- here i make a loop to bring all the place data from the database -->
+
+        <div class="col">
+            {% for f in getimg %}
+            <img src="{{f.uploadImg.url}}" style="height:100%;width:100%;">
+            {% endfor %}
+
+
+        </div>
+        <div class="col">
+                {% for i in pldetail %}
+                    <h2 style="font-weight:bold;color:#333;">{{i.plname}}</h2><br>
+                    <hr>
+                    <p style="font-weight:normal;font-size:12px;color:#888;">
+                      {{i.pldesc}}
+                    </p>
+
+                {% endfor %}
+
+       <!-- end of the loop -->
+      </div>
+    </div>
+
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js"></script>
+<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css" rel="stylesheet" />
+
+
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col">
+
+            <!-- this is the image of the place -->
+    <!--             style: 'mapbox://styles/mapbox/streets-v10', -->
+             <div id='map' style='width: 100%; height: 300px;'></div>
+
+<script>
+ mapboxgl.accessToken = 'pk.eyJ1IjoidGFib29rMjIiLCJhIjoiY2s0djZ0bWFrMGQ1dTNrcjhhdXcyeTZibiJ9.Rc2IFSD2eyjcmYRcqQjtXA';
+
+/* Map: This represents the map on the page. */
+var map = new mapboxgl.Map({
+container: "map",
+style: 'mapbox://styles/mapbox/streets-v10',
+ center: [{{lang}}, {{lat}}],
+            zoom:10,
+            bearing: 180
+});
+
+map.on("load", function () {
+/* Image: An image is loaded and added to the map. */
+map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+if (error) throw error;
+map.addImage("custom-marker", image);
+/* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+map.addLayer({
+id: "markers",
+type: "symbol",
+/* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+source: {
+type: "geojson",
+data: {
+type: 'FeatureCollection',
+features: [
+{
+type: 'Feature',
+properties: {},
+geometry: {
+type: "Point",
+coordinates:  [{{lang}}, {{lat}}],
+}
+}
+]
+}
+},
+layout: {
+"icon-image": "custom-marker",
+}
+});
+});
+});
+
+
+
+</script>
+
+
+        </div>
+    </div>
+    <div class="row" style="margin-top:100px;margin-bottom:100px;">
+        <div class="col">
+            <form action="/place/addcomment/" method="POST">
+                {% csrf_token %}
+                <!-- Hidden file -->
+                <input type="hidden" name="did" value="{{id}}">
+
+                <div class="form-group row">
+                <label for="inputComTitle" class="col-sm-2 col-form-label">Comment Title</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" name="comtitle" id="comtitle"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputComments" class="col-sm-2 col-form-label">Comments</label>
+                <div class="col-sm-10">
+                <textarea rows="4" cols="50" class="form-control" name="comment" id="comment"></textarea>
+                </div>
+              </div>
+               <button type="submit" class="btn btn-primary mb-2" style="position:absolute; right:0;">Send Comments</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+        here we are going to add the list of commets, the must be order from the latest
+
+        {% for cm in getc %}
+        <h2 style="font-size:16px;color:#4338E8;">
+          <i class="far fa-comments" style="margin-right:10px;"></i>{{cm.comtitle}}
+        </h2>
+        <hr>
+        <p style="background-color:#f1f1f1;font-weight:normal;color:#323133;font-size:12px;
+            max-width:75%;
+            border:1px solid #f1f1f1;margin-left:50px;
+            padding:10px;">
+            {{cm.comments}}
+        </p>
+        {% endfor %}
+        </div>
+    </div>
+  </div>
+
+</main>
+{% include "_footer.html" %}

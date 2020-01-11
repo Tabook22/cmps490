@@ -1,0 +1,55 @@
+{% include "_header.html" %}
+<main role="main">
+  <section class="jumbotron text-center" style="background: url(media/{{mimg}}) no-repeat center center;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+    <div class="container" style="background-color:rgba(0,0,0,0.3);">
+      <h1 class="jumbotron-heading" style="color:#fff;font-weight:bold;">{{imgname}}</h1>
+      <p class="lead text-muted" style="color:#fff !important;">{{desc}}</p>
+      <p>
+      <!--  <a href="#" class="btn btn-primary my-2">Move</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
+
+      </p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+      <!-- here i make a loop to bring all the student data from the database -->
+          {% for i in plst %}
+               <div class="col-md-4">
+               <div class="card mb-4 shadow-sm">
+                   <div class="p-img">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{i.uploadImg.url}}">
+                        <!--<img class="pho" src="media/pho/pho1.png" style=" height:80px;width:80px;border-radius: 50%;">-->
+                       <a href="{% url 'main:pho_detail' id=i.pname.id %}"> <img class="pho" src="{{i.pname.uploadImg.url}}" style=" height:80px;width:80px;border-radius: 50%;"></a>
+                   </div>
+
+               <div class="card-body">
+                  <p class="card-text" style="font-weight:bold;color:#888;">{{i.plname}}</p>
+                  <hr>
+                  <p style="font-size:12px;">
+                       {{i.plname.plstext}}
+                  </p>
+
+
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+
+                      <a class="btn btn-sm btn-outline-secondary" href="{% url 'main:detail' id=i.plname.id %}">view More</a>
+                    </div>
+                    <!-- <small class="text-muted">9 mins</small> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          <!-- end of the loop -->
+      </div>
+    </div>
+  </div>
+
+</main>
+{% include "_footer.html" %}

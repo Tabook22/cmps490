@@ -1,0 +1,18 @@
+<h2>Please change the data as required !</h2>
+<hr>
+<form action="/image/edit_b/" method="POST">
+    {% csrf_token %}
+    <input type="hidden"  name="id" value="{{result.id}}">
+    bigimage Title:<input type="text" name="btitle" value="{{result.btitle}}"><br>
+    bigimage ID:<input type="text" name="bid" value="{{result.bid}}"><br>
+    bigimage State:<input type="text" name="bstate" value="{{result.bstate}}"><br>
+    bigimage Order:<input type="text" name="border" value="{{result.border}}"><br>
+    bigimage Stext:<input type="text" name="bstext" value="{{result.bstext}}"><br>
+    bigimage Feature:<input type="text" name="bfeature" value="{{result.bfeature}}"><br>
+    bigimage bplid:<input type="text" name="bplid" value="{{result.bplid}}"><br>
+
+    <input type="submit" name="save changes">
+
+
+
+</form>

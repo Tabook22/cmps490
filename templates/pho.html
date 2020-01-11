@@ -1,0 +1,74 @@
+{% include "_header.html" %}
+<main role="main">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Album example</h1>
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+      <!-- here i make a loop to bring all the place data from the database -->
+       {% for i in phodetail %}
+       <div class="col" style="height:200px;">
+            <img src="{{i.uploadImg.url}}" style="position:absolute;
+            top:0;right:0;
+            height:200px !imprtant;width:300px;max-height:200px; "> <br>
+        </div>
+        <div class="col">
+
+
+                    <h2>{{i.pname}}</h2><br>
+                    <hr>
+                    <p>
+                      {{i.mobile}}
+                    </p>
+
+                    <p>
+                      {{i.address}}
+                    </p>
+
+                    <p>
+                      {{i.email}}
+                    </p>
+
+                    <p>
+                      {{i.desc}}
+                    </p>
+                    {% load static %}
+                    <ul style="margin:0;padding:0; list-style:none;">
+                        <li style="display:inline-block; magin-right:5px;">
+                            <a href="{{i.facebook}}">
+                            <img src="{% static "/assets/fb.png" %}" style="max-width:30px;">
+                            </a>
+                        </li>
+                                              <li style="display:inline-block; magin-right:5px;">
+                                                  <a href="{{i.twitter}}">
+                            <img src="{% static "/assets/tw.png" %}" style="max-width:30px;">
+                            </a>
+                        </li>
+                                              <li style="display:inline-block; magin-right:5px;">
+                                                  <a href="{{i.instagram}}">
+                            <img src="{% static "/assets/in.png" %}" style="max-width:30px;">
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+                {% endfor %}
+
+       <!-- end of the loop -->
+      </div>
+    </div>
+  </div>
+
+</main>
+{% include "_footer.html" %}
